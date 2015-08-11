@@ -16,12 +16,5 @@
 	{ "name": "Mihail Mukov" },
 	{ "name": "Nora Angelova"}
   ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "license": "MIT"
 }
