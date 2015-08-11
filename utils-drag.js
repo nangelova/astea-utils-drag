@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('xxxModuleUtilsDrag');
+var app = angular.module('utilsDrag', []);
 
 app.directive('utilsDrag', function ( ) {
 	return {
