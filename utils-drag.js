@@ -1,17 +1,22 @@
 'use strict';
 
+//    element
+//    eventType - 'dragStart', 'drag', 'dragStop'
+//    pos - absolute pos,
+//    returnCallback
+
 var app = angular.module('utilsDrag', []);
 
 app.directive('utilsDrag', function ( ) {
-	return {
-		restrict: 'A',
-		scope:
+    return {
+        restrict: 'A',
+        scope:
         {
             dragCallback: '&utilsDrag'
         },
-		replace: true,
+        replace: true,
 
-		controller: [ '$scope', '$rootScope', function ( $scope )
+        controller: [ '$scope', '$rootScope', function ( $scope )
         {
             window.ud = $scope;
 
@@ -25,17 +30,20 @@ app.directive('utilsDrag', function ( ) {
 
         }],
 
-		link: function ( scope, element )
-		{
+        link: function ( scope, element )
+        {
             var cursorTop = $(element).height() / 2;
             var cursorLeft = $(element).width() / 2;
 
-            function getCursorPosition ( elementPos )
+            function getCursorPosition ( topLeft, event )
             {
-                elementPos.top += cursorTop;
-                elementPos.left += cursorLeft;
+//				console.log( 'event: ', event );
+//				var eventPos = getEventPos( event );
 
-                return elementPos;
+                var x = event.pageX;
+                var y = event.pageY;
+
+                return { x: x, y: y };
             }
 
             $(element).draggable(
@@ -53,8 +61,9 @@ app.directive('utilsDrag', function ( ) {
 
                         var startDragging = scope.dragCallback(
                             {
+                                element: element,
                                 eventType: 'dragStart',
-                                pos: getCursorPosition( ui.offset ),
+                                pos: getCursorPosition( ui.position, event ),
                                 returnCallback: scope.returnCallback
                             });
 
@@ -66,8 +75,9 @@ app.directive('utilsDrag', function ( ) {
                     {
                         var drag = scope.dragCallback(
                             {
+                                element: element,
                                 eventType: 'drag',
-                                pos: getCursorPosition( ui.offset ),
+                                pos: getCursorPosition( ui.position, event ),
                                 returnCallback: scope.returnCallback
                             });
 
@@ -79,14 +89,15 @@ app.directive('utilsDrag', function ( ) {
                     {
                         var stopDragging = scope.dragCallback(
                             {
+                                element: element,
                                 eventType: 'dragStop',
-                                pos: getCursorPosition( ui.offset ),
+                                pos: getCursorPosition( ui.position, event ),
                                 returnCallback: scope.returnCallback
                             });
 
                         scope.dragElement.css('pointer-events', 'all');
                     }
                 });
-		}
-	};
+        }
+    };
 });
