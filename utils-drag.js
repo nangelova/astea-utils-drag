@@ -1,6 +1,5 @@
 'use strict';
 
-//    element
 //    eventType - 'dragStart', 'drag', 'dragStop'
 //    pos - absolute pos,
 //    returnCallback
@@ -61,7 +60,6 @@ app.directive('utilsDrag', function ( ) {
 
                         var startDragging = scope.dragCallback(
                             {
-                                element: element,
                                 eventType: 'dragStart',
                                 pos: getCursorPosition( ui.position, event ),
                                 returnCallback: scope.returnCallback
@@ -75,7 +73,6 @@ app.directive('utilsDrag', function ( ) {
                     {
                         var drag = scope.dragCallback(
                             {
-                                element: element,
                                 eventType: 'drag',
                                 pos: getCursorPosition( ui.position, event ),
                                 returnCallback: scope.returnCallback
@@ -89,7 +86,6 @@ app.directive('utilsDrag', function ( ) {
                     {
                         var stopDragging = scope.dragCallback(
                             {
-                                element: element,
                                 eventType: 'dragStop',
                                 pos: getCursorPosition( ui.position, event ),
                                 returnCallback: scope.returnCallback
